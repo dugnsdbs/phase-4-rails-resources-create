@@ -1,9 +1,17 @@
 class BirdsController < ApplicationController
-
+  wrap_parameters format:[]
   # GET /birds
+  def create 
+ 
+    bird = Bird.create(bird_parameter)
+    render json: bird, status: :created
+  end
+
   def index
+
     birds = Bird.all
     render json: birds
+  
   end
 
   # GET /birds/:id
@@ -16,4 +24,18 @@ class BirdsController < ApplicationController
     end
   end
 
-end
+
+
+
+
+
+    private 
+
+    def bird_parameter
+      params.permit(:name, :species)
+    end
+
+
+  end
+
+
